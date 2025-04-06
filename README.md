@@ -11,13 +11,14 @@
 
 ## 🔄 Execution Flow
 
-<img src="https://user-images.githubusercontent.com/70671442/232707679-089313ff-90a1-4665-9e82-0ea69b93e05a.png" width="70%" alt="Flow Chart"/>
+<img src="https://https://github.com/user-attachments/assets/79277ee9-ec2b-447e-80e5-4c5bd17c3d01" width="70%" alt="Flow Chart"/>
 
 - 좌측: **메인 화면**  
 - 우측: **게임 진행 화면**
 
 ### 🎯 게임 진행 방식
-![image](https://user-images.githubusercontent.com/70671442/229702833-1eeff66a-b75c-45a2-9e01-9af3eca4b0e2.png)
+![image](https://github.com/user-attachments/assets/76474f61-8857-49f9-a8c4-2fd261a0ffd6)
+
 
 
 
