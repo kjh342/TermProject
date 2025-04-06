@@ -11,7 +11,8 @@
 
 ## 🔄 Execution Flow
 
-<img src="https://https://github.com/user-attachments/assets/79277ee9-ec2b-447e-80e5-4c5bd17c3d01" width="70%" alt="Flow Chart"/>
+<img src="https://github.com/user-attachments/assets/a87c217d-503a-4151-acaa-bd44645110d9" width="70%" alt="Flow Chart"/>
+
 
 - 좌측: **메인 화면**  
 - 우측: **게임 진행 화면**
