@@ -1,6 +1,6 @@
-# 🎮 Infinity Stairs
+# 🎮 프로젝트 이름: 무한의 계
 
-## 📌 Game Concept  
+## 📌 게임 컨셉  
 > **모바일 게임 <무한의 계단 - 엔플라이 스튜디오> 모작**
 
 <img src="https://github.com/user-attachments/assets/ec34232b-3bfe-4fa1-9ea0-e3e09759fb3a" width="30%" alt="Main Image"/>
@@ -9,7 +9,7 @@
 기본 조작, 게임 흐름 및 형태를 **Android Studio**를 활용해 구현합니다.
 
 
-## 🔄 Execution Flow
+## 🔄 실행 흐름
 
 <img src="https://github.com/user-attachments/assets/a87c217d-503a-4151-acaa-bd44645110d9" width="70%" alt="Flow Chart"/>
 
@@ -24,7 +24,7 @@
 
 
 
-## 🗓️ Development Schedule
+## 🗓️ 개발 일정
 
 | 주차 | 내용 |
 |------|------|
