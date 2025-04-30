@@ -14,7 +14,8 @@ import java.util.Iterator;
 import java.util.Random;
 
 public class GameView extends SurfaceView implements SurfaceHolder.Callback {
-
+    private boolean isGameOver = false; // 게임 오버 상태
+    private Bitmap gameOverBitmap; // 게임 오버 이미지
     private GameThread gameThread;
     private Player player;
 
@@ -56,7 +57,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         int stairX = startX;
         int stairY = startY;
         int maxInitialStairY = -screenH * 2;
-        boolean isLeft = true; // 시작 방향 랜덤
+        boolean isLeft = true; // 시작 방향을 왼쪽으로 설정
         int stairBatchCount = random.nextInt(3) + 4; // 4~6개 연속
         int currentCount = 0;
 
@@ -68,8 +69,29 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
                 currentCount = 0;
             }
 
-            stairX += isLeft ? -stepX : stepX;
-            stairX = Math.max(0, Math.min(stairX, screenW - 200));
+            // 좌우 벽 끝에 도달하면 반대 방향으로 이동
+            if (isLeft) {
+                stairX -= stepX;
+                if (stairX <= 0) { // 벽에 도달하면 반대 방향으로 전환
+                    stairX = 0;
+                    isLeft = false;
+                }
+            } else {
+                stairX += stepX;
+                if (stairX >= screenW - 200) { // 벽에 도달하면 반대 방향으로 전환
+                    stairX = screenW - 200;
+                    isLeft = true;
+                }
+            }
+
+            // 겹침 방지: 새로 생성할 계단이 이전 계단과 겹치지 않도록
+            if (!stairs.isEmpty()) {
+                Stair lastStair = stairs.get(stairs.size() - 1);
+                // 마지막 계단과 새로 생성할 계단의 위치가 겹치지 않도록 확인
+                while (Math.abs(stairX - lastStair.getX()) < 100) {
+                    stairX = isLeft ? stairX + stepX : stairX - stepX; // 겹치면 방향 전환
+                }
+            }
 
             stairs.add(new Stair(getContext(), stairX, stairY));
             stairY -= stepY;
