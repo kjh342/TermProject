@@ -29,7 +29,11 @@ public class Stair {
                 playerY + playerHeight <= y + stairBitmap.getHeight();
     }
 
+
     public int getX() { return x; }
     public int getY() { return y; }
     public int getHeight() { return stairBitmap.getHeight(); }
+    public int getWidth() {
+        return stairBitmap.getWidth();
+    }
 }

@@ -73,4 +73,8 @@ public class Player {
     public int getY() { return y; }
     public int getHeight() { return currentBitmap.getHeight(); }
     public Bitmap getCurrentBitmap() { return currentBitmap; }
+    public int getWidth() {
+        return currentBitmap.getWidth();
+    }
+
 }

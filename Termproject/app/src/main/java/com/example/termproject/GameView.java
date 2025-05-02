@@ -14,8 +14,9 @@ import java.util.Iterator;
 import java.util.Random;
 
 public class GameView extends SurfaceView implements SurfaceHolder.Callback {
-    private boolean isGameOver = false; // 게임 오버 상태
-    private Bitmap gameOverBitmap; // 게임 오버 이미지
+    private boolean isGameOver = false;
+    private Bitmap gameOverBitmap;
+
     private GameThread gameThread;
     private Player player;
 
@@ -39,6 +40,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         btnTurnBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.changedirectionbtn);
         btnJumpBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.upbtn);
         background = BitmapFactory.decodeResource(getResources(), R.drawable.background1);
+        gameOverBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.gameover); // ← 게임 오버 이미지 추가
 
         int screenW = getResources().getDisplayMetrics().widthPixels;
         int screenH = getResources().getDisplayMetrics().heightPixels;
@@ -57,39 +59,35 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         int stairX = startX;
         int stairY = startY;
         int maxInitialStairY = -screenH * 2;
-        boolean isLeft = true; // 시작 방향을 왼쪽으로 설정
-        int stairBatchCount = random.nextInt(3) + 4; // 4~6개 연속
+        boolean isLeft = true;
+        int stairBatchCount = random.nextInt(3) + 4;
         int currentCount = 0;
 
         while (stairY > maxInitialStairY) {
             if (currentCount >= stairBatchCount) {
-                // 방향 바꾸기
                 isLeft = !isLeft;
-                stairBatchCount = random.nextInt(3) + 4; // 다시 4~6개 연속
+                stairBatchCount = random.nextInt(3) + 4;
                 currentCount = 0;
             }
 
-            // 좌우 벽 끝에 도달하면 반대 방향으로 이동
             if (isLeft) {
                 stairX -= stepX;
-                if (stairX <= 0) { // 벽에 도달하면 반대 방향으로 전환
+                if (stairX <= 0) {
                     stairX = 0;
                     isLeft = false;
                 }
             } else {
                 stairX += stepX;
-                if (stairX >= screenW - 200) { // 벽에 도달하면 반대 방향으로 전환
+                if (stairX >= screenW - 200) {
                     stairX = screenW - 200;
                     isLeft = true;
                 }
             }
 
-            // 겹침 방지: 새로 생성할 계단이 이전 계단과 겹치지 않도록
             if (!stairs.isEmpty()) {
                 Stair lastStair = stairs.get(stairs.size() - 1);
-                // 마지막 계단과 새로 생성할 계단의 위치가 겹치지 않도록 확인
                 while (Math.abs(stairX - lastStair.getX()) < 100) {
-                    stairX = isLeft ? stairX + stepX : stairX - stepX; // 겹치면 방향 전환
+                    stairX = isLeft ? stairX + stepX : stairX - stepX;
                 }
             }
 
@@ -98,10 +96,12 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
             currentCount++;
         }
+
         if (!stairs.isEmpty()) {
             Stair firstStair = stairs.get(0);
-            int initialX = firstStair.getX() - 60; // 첫 번째 계단의 x보다 100만큼 왼쪽으로 이동
-            player.setPosition(initialX, firstStair.getY() - player.getHeight() + 160); // y 위치는 50만큼 내리기
+            int initialX = firstStair.getX() + (firstStair.getWidth() - player.getWidth()) / 2;
+            int initialY = firstStair.getY() - player.getHeight() + 50; // 충돌 판정 기준에 맞게 수정
+            player.setPosition(initialX, initialY);
         }
     }
 
@@ -131,6 +131,14 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
         if (canvas != null) {
             canvas.drawBitmap(background, 0, 0, null);
+
+            if (isGameOver) {
+                canvas.drawBitmap(gameOverBitmap,
+                        (getWidth() - gameOverBitmap.getWidth()) / 2,
+                        (getHeight() - gameOverBitmap.getHeight()) / 2,
+                        null);
+                return;
+            }
 
             int screenMid = getHeight() / 2;
             int offset = screenMid - player.getY();
@@ -169,12 +177,34 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
                     iterator.remove();
                 }
             }
+
+            // 🔍 충돌 감지 및 게임 오버 체크
+            boolean onStair = false;
+            for (Stair stair : stairs) {
+                if (stair.isPlayerOnStair(player.getX(), player.getY(),
+                        player.getCurrentBitmap().getWidth(), player.getHeight())) {
+                    onStair = true;
+                    break;
+                }
+            }
+
+            if (!onStair) {
+                isGameOver = true;
+            }
         }
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            if (isGameOver) {
+                // 게임 오버 상태에서 화면을 터치하면 메인으로 이동
+                if (getContext() instanceof GameActivity) {
+                    ((GameActivity) getContext()).returnToMain();
+                }
+                return true;
+            }
+
             float x = event.getX();
             float y = event.getY();
 
@@ -194,4 +224,5 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         }
         return true;
     }
+
 }
