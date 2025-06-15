@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
@@ -11,20 +12,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Termproject"
         tools:targetApi="31">
-
-        <!-- GameActivity -->
-        <activity android:name=".GameActivity"
-            android:exported="true" /> <!-- export 속성 추가 -->
-
-        <!-- MainActivity -->
-        <activity android:name=".MainActivity"
-            android:exported="true"> <!-- export 속성 추가 -->
+        <activity
+            android:name=".app.TermActivity"
+            android:exported="false" />
+        <activity
+            android:name=".app.MainActivity"
+            android:exported="true">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
     </application>
 
 </manifest>
