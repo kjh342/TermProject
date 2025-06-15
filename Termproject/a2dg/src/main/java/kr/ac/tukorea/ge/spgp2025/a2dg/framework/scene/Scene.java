@@ -169,6 +169,7 @@ public class Scene {
     public void change() {
         GameView.view.changeScene(this);
     }
+
     public void push() {
         GameView.view.pushScene(this);
     }
@@ -236,4 +237,6 @@ public class Scene {
     public boolean clipsRect() {
         return true;
     }
+
+
 }
