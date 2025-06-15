@@ -5,9 +5,9 @@
 플레이어는 점프 및 방향 전환 버튼을 활용해 계단을 밟아 올라가며 최고 점수를 노리는 레트로 스타일 액션 게임입니다.
 
 ---
-## 📈 커밋 현황 (이미지)
+## 📈 커밋 현황 이미지
+![커밋 이미지](https://private-user-images.githubusercontent.com/163160653/455280244-ba51d21b-a8cf-43ac-bd92-4abe6a1180fb.png)
 
-![image]([[https://github.com/your-repo/your-image-path.png](https://github.com/kjh342/TermProject/issues/1#issue-3147927054)](https://github.com/kjh342/TermProject/issues/1))
 
 ## 🧩 개발 진척도 (최신 기준)
 | 주차   | 주요 작업 내용                         | 진척도 |
