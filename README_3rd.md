@@ -7,7 +7,7 @@
 ---
 ## 📈 커밋 현황 (이미지)
 
-![image](https://github.com/your-repo/your-image-path.png)
+![image]([https://github.com/your-repo/your-image-path.png](https://github.com/kjh342/TermProject/issues/1#issue-3147927054))
 
 ## 🧩 개발 진척도 (최신 기준)
 | 주차   | 주요 작업 내용                         | 진척도 |
